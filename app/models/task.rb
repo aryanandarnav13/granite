@@ -25,4 +25,10 @@ class Task < ApplicationRecord
       slug_candidate = slug_count.positive? ? "#{title_slug}-#{slug_count + 1}" : title_slug
       self.slug = slug_candidate
     end
+
+    def slug_not_changed
+      if slug_changed? && self.persisted?
+        errors.add(:slug, t("task.slug.immutable"))
+      end
+    end
 end
