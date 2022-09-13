@@ -2,12 +2,36 @@
 
 class Task < ApplicationRecord
   MAX_TITLE_LENGTH = 125
+  # before_validation :set_title
+  before_validation :set_title, if: :title_not_present
+  before_validation :print_set_title
   validates :title, presence: true, length: { maximum: 125 }
   validates :slug, uniqueness: true
   validate :slug_not_changed
   before_create :set_slug
+  after_save :change_title
 
   private
+
+    def title_not_present
+      self.title.blank?
+     end
+
+    def title_present
+      self.title.present?
+    end
+
+    def set_title
+      self.title = "Pay electricity bill"
+    end
+
+    def change_title
+      self.title = "Pay electricity & TV bill"
+    end
+
+    def print_set_title
+      puts self.title
+    end
 
     def set_slug
       title_slug = title.parameterize
