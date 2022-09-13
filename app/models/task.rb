@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  belongs_to :task_owner, foreign_key: "task_owner_id", class_name: "User"
   MAX_TITLE_LENGTH = 125
   # before_validation :set_title
   before_validation :set_title, if: :title_not_present
