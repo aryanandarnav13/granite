@@ -11,6 +11,8 @@ class Task < ApplicationRecord
   before_create :set_slug
   after_save :change_title
 
+  belongs_to :assigned_user, foreign_key: "assigned_user_id", class_name: "User"
+
   private
 
     def title_not_present
