@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :load_task!, only: %i[show update]
+  before_action :load_task!, only: %i[show update destroy]
 
   def show
     respond_with_json({ task: @task })
@@ -22,6 +22,11 @@ class TasksController < ApplicationController
     task = Task.find_by!(slug: params[:slug])
     task.update!(task_params)
     respond_with_success(t("successfully_updated"))
+  end
+
+  def destroy
+    @task.destroy!
+    respond_with_json
   end
 
   private
