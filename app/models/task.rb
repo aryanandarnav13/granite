@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Task < ApplicationRecord
+  enum status: { unstarred: "unstarred", starred: "starred" }
   RESTRICTED_ATTRIBUTES = %i[title task_owner_id assigned_user_id]
   enum progress: { pending: "pending", completed: "completed" }
   has_many :comments, dependent: :destroy
