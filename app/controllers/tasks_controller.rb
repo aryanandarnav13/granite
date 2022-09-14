@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
 
-    after_action :verify_authorized, except: :index
-    after_action :verify_policy_scoped, only: :index
+   after_action :verify_authorized, except: :index
+   after_action :verify_policy_scoped, only: :index
 
   before_action :load_task!, only: %i[show update destroy]
 
@@ -21,7 +21,9 @@ class TasksController < ApplicationController
 
   def show
     authorize @task
+    @comments = @task.comments.order('created_at DESC')
   end
+
 
   def update
     authorize @task
