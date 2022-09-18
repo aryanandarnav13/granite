@@ -82,3 +82,8 @@ end
 group :production do
   gem "pg"
 end
+
+# PDF generation gem
+gem "wicked_pdf"
+# wicked_pdf uses the following binary
+gem "wkhtmltopdf-binary"
